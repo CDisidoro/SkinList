@@ -17,22 +17,32 @@ class Cosmetic(models.Model):
     rarity = models.CharField(max_length=50)
     introduction = models.DateTimeField()
     #icon = models.FilePathField(path="/img")
+    def __str__(self):
+        return "ID: "+ str(self.id) + "; Name: " + self.name + "; Description: " + self.description + "; Type: " + self.type + "; Rarity: " + self.rarity + "; Introduction: " + str(self.introduction)
 
 class Wishlist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     cosmetic = models.ForeignKey(Cosmetic, on_delete=models.CASCADE)
+    def __str__(self):
+        return "User: "+ str(self.user) + "; Cosmetic: " + str(self.cosmetic)
 
 class Shop(models.Model):
     hash = models.CharField(max_length=50, primary_key=True)
     date = models.DateTimeField()
+    def __str__(self):
+        return "Hash: "+ self.hash + "; Date: " + str(self.date)
 
 class ShopItems(models.Model):
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     cosmetic = models.ForeignKey(Cosmetic, on_delete=models.CASCADE)
     price = models.PositiveSmallIntegerField()
+    def __str__(self):
+        return "Shop: "+ str(self.shop) + "; Cosmetic: " + str(self.cosmetic) + "; Price: " + str(self.price)
 
 class Bundle(models.Model):
     id = models.CharField(max_length=190, primary_key=True)
     name = models.CharField(max_length=50)
     price = models.PositiveSmallIntegerField()
     cosmetics = models.ManyToManyField(Cosmetic)
+    def __str__(self):
+        return "ID: "+ str(self.id) + "; Name: " + self.name + "; Price: " + str(self.price) + "; Cosmetics: " + str(self.cosmetics)
