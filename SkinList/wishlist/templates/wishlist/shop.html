@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <title>Skinlist</title>
+    </head>
+    <body>
+        <h1>Current shop</h1>
+        <ul>
+            {% for item in itemsInShop %}
+                <li>Item name: {{ item.name }}</li>
+            {% endfor %}
+        </ul>
+</html>
