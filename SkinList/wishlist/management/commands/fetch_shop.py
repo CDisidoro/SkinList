@@ -2,13 +2,14 @@ from django.core.management.base import BaseCommand
 from ...models import Shop, Cosmetic, ShopItem, Bundle
 import logging
 import fortnite_api
+import os
 
 class Command(BaseCommand):
     help = 'Updates the shop'
         
     def handle(self, *args, **options):
         logger = logging.getLogger(__name__)
-        API = fortnite_api.FortniteAPI("20e3d446-6d3e-434c-9da8-29f4b7ba43f6")
+        API = fortnite_api.FortniteAPI(os.getenv('FORT_SECRET'))
         logger.warning("Fetching shop...")
         shop = API.shop.fetch()
         newShop = Shop.objects.update_or_create(

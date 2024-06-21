@@ -2,8 +2,9 @@ from django.shortcuts import render
 from .models import ShopItem, Cosmetic, Bundle
 import fortnite_api
 import logging
+import os
 # Create your views here.
-API = fortnite_api.FortniteAPI("20e3d446-6d3e-434c-9da8-29f4b7ba43f6")
+API = fortnite_api.FortniteAPI(os.getenv('FORT_SECRET'))
 logger = logging.getLogger(__name__)
 
 def index(request):
