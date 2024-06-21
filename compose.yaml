@@ -18,7 +18,7 @@ services:
       start_period: 5s
   app:
     build: ./SkinList
-    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+    command: ["./start.sh"]
     volumes:
       - ./SkinList:/app
     ports:

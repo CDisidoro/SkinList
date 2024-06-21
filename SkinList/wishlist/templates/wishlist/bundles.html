@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>Skinlist</title>
+    </head>
+    <body>
+        <h1>Bundles</h1>
+        <ul>
+            {% for item in bundles %}
+                <li>Bundle name: {{ item.name }}</li>
+                <ul>
+                    {% for cosmetic in item.cosmetics.all %}
+                        <li>Cosmetic name: {{ cosmetic.name }}</li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        </ul>
+</html>

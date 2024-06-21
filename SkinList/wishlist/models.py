@@ -32,7 +32,7 @@ class Shop(models.Model):
     def __str__(self):
         return "Hash: "+ self.hash + "; Date: " + str(self.date)
 
-class ShopItems(models.Model):
+class ShopItem(models.Model):
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     cosmetic = models.ForeignKey(Cosmetic, on_delete=models.CASCADE)
     price = models.PositiveSmallIntegerField()

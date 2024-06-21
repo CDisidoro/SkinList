@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <title>Skinlist</title>
+    </head>
+    <body>
+        <h1>Cosmetics</h1>
+        <ul>
+            {% for item in cosmetics %}
+                <li>Item name: {{ item.name }}</li>
+            {% endfor %}
+        </ul>
+</html>
