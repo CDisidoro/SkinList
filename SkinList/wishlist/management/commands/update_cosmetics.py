@@ -15,6 +15,13 @@ class Command(BaseCommand):
         cosmetics = API.cosmetics.fetch_all()
         logger.warning("Updating cosmetic list")
         for cosmetic in cosmetics:
+            if cosmetic.icon is None:
+                if cosmetic.featured is None:
+                    icon = cosmetic.small_icon.url
+                else:
+                    icon = cosmetic.featured.url
+            else:
+                icon = cosmetic.icon.url
             Cosmetic.objects.update_or_create(
                 id=cosmetic.id,
                 defaults={
@@ -23,7 +30,7 @@ class Command(BaseCommand):
                     'type': cosmetic.display_type,
                     'rarity': cosmetic.rarity_text,
                     'introduction': cosmetic.added,
-                    # 'icon': cosmetic.images.icon
+                    'icon': icon
                 }
             )
         logger.warning("Cosmetic list updated")

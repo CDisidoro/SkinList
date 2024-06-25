@@ -1,16 +1,6 @@
-{% load static %}
-<html>
-    <head>
-        <title>Skinlist</title>
-        <link rel="stylesheet" href="{% static 'wishlist/style.css' %}">
-    </head>
-    <body>
-        <h1>Skinlist</h1>
-        <h2>Your Fortnite shop tracker</h2>
-        <a href="{% url 'shop' %}">See the current shop</a>
-        <br>
-        <a href="{% url 'cosmetics' %}">See all the cosmetics</a>
-        <br>
-        <a href="{% url 'bundles' %}">See all the active bundles</a>
-    </body>
-</html>
+{% extends "wishlist/base_static.html" %}
+{% block content %}
+<div class="container">
+    <h1 class="light-blue-text lighten-5">Your Fortnite shop tracker</h1>
+</div>
+{% endblock %}

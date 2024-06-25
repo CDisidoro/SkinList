@@ -1,12 +1,17 @@
-<html>
-    <head>
-        <title>Skinlist</title>
-    </head>
-    <body>
-        <h1>Current shop</h1>
-        <ul>
-            {% for item in itemsInShop %}
-                <li>Item name: {{ item.name }}</li>
-            {% endfor %}
-        </ul>
-</html>
+{% extends "wishlist/base_static.html" %}
+{% block content %}
+<div class="container">
+    <h1 class="light-blue-text lighten-5">Current shop</h1>
+    <div class="row">
+        {% for item in itemsInShop %}
+        <div class="col s12 m6 l3">
+            <div class="card small light-blue darken-2 card-content-center">
+                <img src="{{ item.icon }}" width="200"/>
+                <br>
+                <span class="card-title">{{ item.name }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

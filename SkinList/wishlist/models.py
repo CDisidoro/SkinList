@@ -1,13 +1,7 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
-class User(models.Model):
-    id = models.AutoField(primary_key=True)
-    username = models.CharField(max_length=50, unique=True)
-    email = models.EmailField(max_length=50, unique=True)
-    password = models.TextField()
-    def __str__(self):
-        return "ID: "+ str(self.id) + "; Username: " + self.username + "; Email: " + self.email
 
 class Cosmetic(models.Model):
     id = models.CharField(max_length=191, primary_key=True)
@@ -16,12 +10,12 @@ class Cosmetic(models.Model):
     type = models.CharField(max_length=50)
     rarity = models.CharField(max_length=50)
     introduction = models.DateTimeField()
-    #icon = models.FilePathField(path="/img")
+    icon = models.TextField()
     def __str__(self):
         return "ID: "+ str(self.id) + "; Name: " + self.name + "; Description: " + self.description + "; Type: " + self.type + "; Rarity: " + self.rarity + "; Introduction: " + str(self.introduction)
 
 class Wishlist(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     cosmetic = models.ForeignKey(Cosmetic, on_delete=models.CASCADE)
     def __str__(self):
         return "User: "+ str(self.user) + "; Cosmetic: " + str(self.cosmetic)

@@ -1,17 +1,19 @@
-<html>
-    <head>
-        <title>Skinlist</title>
-    </head>
-    <body>
-        <h1>Bundles</h1>
-        <ul>
-            {% for item in bundles %}
-                <li>Bundle name: {{ item.name }}</li>
-                <ul>
-                    {% for cosmetic in item.cosmetics.all %}
-                        <li>Cosmetic name: {{ cosmetic.name }}</li>
-                    {% endfor %}
-                </ul>
+{% extends "wishlist/base_static.html" %}
+{% block content %}
+<div class="container">
+    <h1 class="light-blue-text lighten-5">Bundles</h1>
+    {% for item in bundles %}
+        <h4 class="light-blue-text lighten-5">Bundle name: {{ item.name }}</h4>
+        <div class="row">
+            {% for cosmetic in item.cosmetics.all %}
+            <div class="col s12 m6 l3">
+                <div class="card small light-blue darken-2 card-content-center">
+                    <img src="{{ cosmetic.icon }}" width="200"/>
+                    <span class="card-title">{{ cosmetic.name }}</span>
+                </div>
+            </div>
             {% endfor %}
-        </ul>
-</html>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
