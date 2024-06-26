@@ -20,7 +20,8 @@ def shop(request):
     logger.info("cosmetics in shop: " + str(cosmeticsInShop))
     itemsInShop = [item.cosmetic for item in cosmeticsInShop]
     context = {
-        'itemsInShop': itemsInShop
+        'itemsInShop': itemsInShop,
+        'shopDate': latest_shop.shop.date,
     }
     return render(request, 'wishlist/shop.html', context)
 
@@ -30,6 +31,13 @@ def cosmetics(request):
         'cosmetics': cosmetics
     }
     return render(request, 'wishlist/cosmetics.html', context)
+
+def cosmetic(request, cosmetic_id):
+    cosmetic = Cosmetic.objects.get(pk=cosmetic_id)
+    context = {
+        'cosmetic': cosmetic
+    }
+    return render(request, 'wishlist/cosmetic.html', context)
 
 def bundles(request):
     bundles = Bundle.objects.all()

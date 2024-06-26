@@ -11,8 +11,9 @@ class Cosmetic(models.Model):
     rarity = models.CharField(max_length=50)
     introduction = models.DateTimeField()
     icon = models.TextField()
+    obtainable = models.TextField()
     def __str__(self):
-        return "ID: "+ str(self.id) + "; Name: " + self.name + "; Description: " + self.description + "; Type: " + self.type + "; Rarity: " + self.rarity + "; Introduction: " + str(self.introduction)
+        return "ID: "+ str(self.id) + "; Name: " + self.name + "; Obtainable: " + self.obtainable
 
 class Wishlist(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
