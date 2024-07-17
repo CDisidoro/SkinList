@@ -1,28 +1,37 @@
 {% extends "wishlist/base_static.html" %}
 {% block content %}
-<div class="container">
+<div class="container page-content">
     <h1 class="light-blue-text lighten-5">Register</h1>
+    {% if messages %}
+        <div class="collection">
+            {% for message in messages %}
+                <p class="collection-item red-text">{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
     <form method="POST" action="{% url 'postRegister' %}">
         {% csrf_token %}
         <div class="input-field">
-            <input id="first_name" type="text" class="validate" name="first_name">
+            <input id="first_name" type="text" class="validate grey-text text-lighten-4" name="first_name" required>
             <label for="first_name">First name</label>
         </div>
         <div class="input-field">
-            <input id="last_name" type="text" class="validate" name="last_name">
+            <input id="last_name" type="text" class="validate grey-text text-lighten-4" name="last_name" required>
             <label for="last_name">Last name</label>
         </div>
         <div class="input-field">
-            <input id="email" type="email" class="validate" name="email">
+            <input id="email" type="email" class="validate grey-text text-lighten-4" name="email" required>
             <label for="email">Email</label>
         </div>
         <div class="input-field">
-            <input id="username" type="text" class="validate" name="username">
+            <input id="username" type="text" class="validate grey-text text-lighten-4" name="username" required>
             <label for="username">Username</label>
         </div>
         <div class="input-field">
-            <input id="password" type="password" class="validate" name="password">
+            <input id="password" type="password" class="validate grey-text text-lighten-4" name="password" required>
             <label for="password">Password</label>
         </div>
         <button class="waves-effect waves-light btn" type="submit">Register</button>
+    </form>
+</div>
 {% endblock %}

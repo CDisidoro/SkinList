@@ -1,3 +1,8 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
 .card-content-center {
     display: flex;
     flex-direction: column;
@@ -5,4 +10,14 @@
     justify-content: center;
     text-align: center;
     padding: 20px;
+}
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.page-footer {
+    margin-top: auto;
 }

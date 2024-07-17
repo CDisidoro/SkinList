@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from SkinList import settings
@@ -63,6 +64,7 @@ def wishlist(request):
         }
         return render(request, 'wishlist/wishlist.html', context)
     else:
+        messages.info(request, 'You need to be logged in to view your wishlist')
         return redirect("login")
 
 def wishlistRemove(request, cosmetic_id):
@@ -72,6 +74,7 @@ def wishlistRemove(request, cosmetic_id):
         userWishlist.delete()
         return redirect('wishlist')
     else:
+        messages.warning(request, 'You need to be logged in to remove items from your wishlist')
         return redirect('login')
     
 def wishlistAdd(request, cosmetic_id):
@@ -83,34 +86,62 @@ def wishlistAdd(request, cosmetic_id):
         )
         return redirect('wishlist')
     else:
+        messages.warning(request, 'You need to be logged in to add items to your wishlist')
         return redirect('login')
 
 def getlogin(request):
     return render(request, 'wishlist/login.html')
 
 def postLogin(request):
+    missingFields = 0
     username = request.POST['username']
+    if not username:
+        missingFields += 1
     password = request.POST['password']
+    if not password:
+        missingFields += 1
+    logger.warning("Login Missing fields: " + str(missingFields))
     user = authenticate(request, username=username, password=password)
-    if user is not None:
+    if user is not None and missingFields == 0:
         login(request, user)
-        return redirect('wishlist')
+        messages.success(request, 'You have successfully logged in')
+        return redirect('index')
     else:
+        messages.error(request, 'Invalid credentials')
         return redirect('login')
 
 def register(request):
     return render(request, 'wishlist/register.html')
 
 def postRegister(request):
+    missingFields = 0
     username = request.POST['username']
+    if not username:
+        missingFields += 1
     password = request.POST['password']
+    if not password:
+        missingFields += 1
     email = request.POST['email']
+    if not email:
+        missingFields += 1
     first_name = request.POST['first_name']
+    if not first_name:
+        missingFields += 1
     last_name = request.POST['last_name']
+    if not last_name:
+        missingFields += 1
+    logger.warning("Register Missing fields: " + str(missingFields))
+    if missingFields > 0:
+        messages.error(request, 'Please fill in all fields')
+        return redirect('register')
     user = User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
     user.save()
+    authedUser = authenticate(request, username=username, password=password)
+    login(request, authedUser)
+    messages.success(request, 'You have successfully registered')
     return redirect('index')
 
 def postLogout(request):
     logout(request)
+    messages.success(request, 'You have successfully logged out')
     return redirect('index')

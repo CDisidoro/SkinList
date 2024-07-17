@@ -1,6 +1,13 @@
 {% extends "wishlist/base_static.html" %}
 {% block content %}
-<div class="container">
+<div class="container page-content">
+    {% if messages %}
+        <div class="collection">
+            {% for message in messages %}
+                <p class="collection-item green-text">{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
     <h1 class="light-blue-text lighten-5">Your Fortnite shop tracker</h1>
 </div>
 {% endblock %}
