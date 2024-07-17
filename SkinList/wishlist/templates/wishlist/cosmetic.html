@@ -3,6 +3,25 @@
 <div class="container">
     <h1 class="light-blue-text lighten-5">{{cosmetic.name}}</h1>
     <div class="row">
+        <div class="col s6">
+            <img src="{{ cosmetic.icon }}" width="400"/>
+        </div>
+        <div class="col s6">
+            <p class="grey-text text-lighten-4">Description: {{ cosmetic.description }}</p>
+            <p class="grey-text text-lighten-4">Type: {{ cosmetic.type }}</p>
+            <p class="grey-text text-lighten-4">Rarity: {{ cosmetic.rarity }}</p>
+            <p class="grey-text text-lighten-4">Introduction: {{ cosmetic.introduction }}</p>
+            <p class="grey-text text-lighten-4">How to obtain: {{ cosmetic.obtainable }}</p>
+            {% if user.is_authenticated %}
+                {% if inWishList == 1 %}
+                    <a href="/wishlistRemove/{{cosmetic.id}}" class="waves-effect waves-light btn red">Remove from wishlist</a>
+                {% else %}
+                    <a href="/wishlistAdd/{{cosmetic.id}}" class="waves-effect waves-light btn">Add to wishlist</a>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'login' %}" class="waves-effect waves-light btn">Login to add to wishlist</a>
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}

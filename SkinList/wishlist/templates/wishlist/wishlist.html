@@ -1,4 +1,23 @@
 {% extends "wishlist/base_static.html" %}
 {% block content %}
-
+<div class="container">
+    <h1 class="light-blue-text lighten-5">{{user.username}}'s Wishlist</h1>
+    {% if wishList|length == 0 %}
+    <h3 class="light-blue-text lighten-5">You don't have any items in your wishlist. Try adding something!</h3>
+    {% else %}
+    <div class="row">
+        {% for item in wishList %}
+        <div class="col s12 m6 l3">
+            <a href="/cosmetic/{{item.id}}" class="black-text">
+                <div class="card small light-blue darken-2 card-content-center">
+                    <img src="{{ item.icon }}" width="200"/>
+                    <br>
+                    <span class="card-title">{{ item.name }}</span>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

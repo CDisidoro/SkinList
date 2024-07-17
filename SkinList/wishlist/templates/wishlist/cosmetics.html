@@ -5,10 +5,12 @@
     <div class="row">
         {% for item in cosmetics %}
         <div class="col s12 m6 l3">
-            <div class="card small light-blue darken-2 card-content-center">
-                <img src="{{ item.icon }}" width="200"/>
-                <span class="card-title">{{ item.name }}</span>
-            </div>
+            <a href="/cosmetic/{{item.id}}" class="black-text">
+                <div class="card small light-blue darken-2 card-content-center">
+                    <img src="{{ item.icon }}" width="200"/>
+                    <span class="card-title">{{ item.name }}</span>
+                </div>
+            </a>
         </div>
         {% endfor %}
     </div>

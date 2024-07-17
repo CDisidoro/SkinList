@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from SkinList import settings
-from .models import ShopItem, Cosmetic, Bundle
+from .models import ShopItem, Cosmetic, Bundle, Wishlist
 import fortnite_api
 import logging
 import os
@@ -37,6 +37,12 @@ def cosmetic(request, cosmetic_id):
     context = {
         'cosmetic': cosmetic
     }
+    if request.user.is_authenticated:
+        userID = request.user.id
+        userWishlist = Wishlist.objects.filter(user=userID, cosmetic=cosmetic_id)
+        logger.info("User wishlist: " + str(userWishlist))
+        logger.info("Item in wishlist?: " + str(len(userWishlist) > 0))
+        context['inWishList'] = len(userWishlist)
     return render(request, 'wishlist/cosmetic.html', context)
 
 def bundles(request):
@@ -48,9 +54,36 @@ def bundles(request):
 
 def wishlist(request):
     if request.user.is_authenticated:
-        return render(request, 'wishlist/wishlist.html')
+        userWishlist = Wishlist.objects.filter(user=request.user.id)
+        logger.info("User wishlist: " + str(userWishlist))
+        itemsInWishList = Cosmetic.objects.filter(id__in=[item.cosmetic_id for item in userWishlist])
+        logger.info("Items in wishlist: " + str(itemsInWishList))
+        context = {
+            'wishList': itemsInWishList
+        }
+        return render(request, 'wishlist/wishlist.html', context)
     else:
         return redirect("login")
+
+def wishlistRemove(request, cosmetic_id):
+    if request.user.is_authenticated:
+        userID = request.user.id
+        userWishlist = Wishlist.objects.filter(user=userID, cosmetic=cosmetic_id)
+        userWishlist.delete()
+        return redirect('wishlist')
+    else:
+        return redirect('login')
+    
+def wishlistAdd(request, cosmetic_id):
+    if request.user.is_authenticated:
+        userID = request.user.id
+        Wishlist.objects.update_or_create(
+            user_id=userID,
+            cosmetic_id=cosmetic_id
+        )
+        return redirect('wishlist')
+    else:
+        return redirect('login')
 
 def getlogin(request):
     return render(request, 'wishlist/login.html')

@@ -13,4 +13,6 @@ urlpatterns = [
     path("register", views.register, name="register"),
     path("postRegister", views.postRegister, name="postRegister"),
     path("cosmetic/<cosmetic_id>", views.cosmetic, name="cosmetic"),
+    path("wishlistAdd/<cosmetic_id>", views.wishlistAdd, name="wishlistAdd"),
+    path("wishlistRemove/<cosmetic_id>", views.wishlistRemove, name="wishlistRemove"),
 ]
