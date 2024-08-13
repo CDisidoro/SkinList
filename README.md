@@ -18,11 +18,24 @@ git pull https://github.com/CDisidoro/SkinList.git
 ```bash
 ./run.sh
 ```
-3. A menu will be shown. Type the option 1 to launch the application.
+3. A installation assistant will be shown. Follow the steps on the assistant, typing all of the requested information.
+```
+Config file not found. Proceeding to installation...
+Enter the database ROOT password:
+Enter the database name:
+Enter the database user:
+Enter the database user password:
+Enter the database host:
+Enter the Django secret key. It can be generated at https://djecrety.ir/ :
+Enter the fortnite API secret key. It can be generated at https://dash.fortnite-api.com/account by logging in via Discord and following the instructions:
+Will the server run in production mode? [Y/n]
+Enter the server port:
+```
+4. Once the installation assistant finishes, a menu will be shown. Type the option 1 to launch the application.
 ```
 Choose an option:
 1) Launch application
 2) Reset application (DANGER ZONE)
-0) Exit
+3) Exit
 ```
-4. Once the application launches, go to (http://localhost:8000)
+1. Once the application launches, go to (http://localhost:< The port you put on the configuration file>)

@@ -29,7 +29,7 @@ function attemp_install() {
         while [ -z "$db_name" ]; do
             read -r -p "Database name cannot be empty. Please enter the database name: " db_name
         done
-        read -r -p "Enter de database user: " db_user
+        read -r -p "Enter the database user: " db_user
         while [ -z "$db_user" ]; do
             read -r -p "Database user cannot be empty. Please enter the database user: " db_user
         done
@@ -57,6 +57,10 @@ function attemp_install() {
             echo "Production mode disabled. Do not deploy this server on production."
             production="False"
         fi
+        read -r -p "Enter the server port: " port
+        while [ -z "$port" ]; do
+            read -r -p "Server port cannot be empty. Please enter the server port: " port
+        done
         echo "Creating config file..."
         echo "MYSQL_ROOT_PASSWORD=$db_password
 MYSQL_DATABASE=$db_name
@@ -65,7 +69,8 @@ MYSQL_PASSWORD=$db_user_password
 MYSQL_HOST=$db_host
 DJANGO_SECRET_KEY=$secret
 FORT_SECRET=$fort_secret
-DJANGO_DEBUG=$production" >.env
+DJANGO_DEBUG=$production
+PORT=$port" >.env
     else
         echo "Config file found."
     fi
@@ -85,6 +90,7 @@ while true; do
         2)
             if confirmacion; then
                 echo "Resetting application..."
+                #rm .env;
                 #Detiene los contenedores en caso de que esten en ejecucion
                 docker stop skinlist-app-1;
                 docker stop skinlist-db-1;

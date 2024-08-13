@@ -22,7 +22,7 @@ services:
     volumes:
       - ./SkinList:/app
     ports:
-      - "8000:8000"
+      - "${PORT}:${PORT}"
     depends_on:
       db:
         condition: service_healthy
@@ -34,5 +34,6 @@ services:
       DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
       DJANGO_DEBUG: ${DJANGO_DEBUG}
       FORT_SECRET: ${FORT_SECRET}
+      PORT: ${PORT}
 volumes:
   mysql_data:

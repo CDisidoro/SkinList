@@ -1,6 +1,6 @@
 | Name               | Version  | License                              |
 |--------------------|----------|--------------------------------------|
-| Django             | 5.0.7    | BSD License                          |
+| Django             | 5.0.8    | BSD License                          |
 | aiohttp            | 3.9.5    | Apache Software License              |
 | aiosignal          | 1.3.1    | Apache Software License              |
 | asgiref            | 3.8.1    | BSD License                          |
