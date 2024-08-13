@@ -10,6 +10,14 @@
         </div>
     </div>
     <div class="row">
+        <form method="GET" action="{% url 'shop' %}">
+            <div class="input-field col s12">
+                <input id="searchQuery" name="searchQuery" type="text" class="materialize-textarea light-blue-text lighten-5"></input>
+                <label for="searchQuery" class="light-blue-text lighten-5">Search... (Press Enter to search)</label>
+            </div>
+        </form>
+    </div>
+    <div class="row">
         {% for item in itemsInShop %}
         <div class="col s12 m6 l3">
             <a href="/cosmetic/{{item.id}}" class="black-text">

@@ -17,17 +17,27 @@ def index(request):
 def shop(request):
     latest_shop = ShopItem.objects.latest('shop__date')
     logger.info("latest shop: " + str(latest_shop.shop.date))
-    cosmeticsInShop = ShopItem.objects.filter(shop=latest_shop.shop)
+    searchQuery = request.GET.get('searchQuery')
+    logger.info("Search query: " + str(searchQuery))
+    if searchQuery:
+        cosmeticsInShop = ShopItem.objects.filter(shop=latest_shop.shop, cosmetic__name__icontains=searchQuery)
+    else:
+        cosmeticsInShop = ShopItem.objects.filter(shop=latest_shop.shop)
     logger.info("cosmetics in shop: " + str(cosmeticsInShop))
     itemsInShop = [item.cosmetic for item in cosmeticsInShop]
     context = {
         'itemsInShop': itemsInShop,
-        'shopDate': latest_shop.shop.date,
+        'shopDate': latest_shop.shop.date
     }
     return render(request, 'wishlist/shop.html', context)
 
 def cosmetics(request):
-    cosmetics = Cosmetic.objects.all()
+    searchQuery = request.GET.get('searchQuery')
+    logger.info("Search query: " + str(searchQuery))
+    if searchQuery:
+        cosmetics = Cosmetic.objects.filter(name__icontains=searchQuery)
+    else:
+        cosmetics = Cosmetic.objects.all()
     context = {
         'cosmetics': cosmetics
     }
@@ -47,7 +57,12 @@ def cosmetic(request, cosmetic_id):
     return render(request, 'wishlist/cosmetic.html', context)
 
 def bundles(request):
-    bundles = Bundle.objects.all()
+    searchQuery = request.GET.get('searchQuery')
+    logger.info("Search query: " + str(searchQuery))
+    if searchQuery:
+        bundles = Bundle.objects.filter(name__icontains=searchQuery)
+    else:
+        bundles = Bundle.objects.all()
     context = {
         'bundles': bundles
     }
