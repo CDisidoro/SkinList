@@ -17,7 +17,62 @@ function mostrar_menu() {
     echo "0) Exit "
 }
 
+function attemp_install() {
+    find .env;
+    if [ $? -ne 0 ]; then
+        echo "Config file not found. Proceeding to installation..."
+        read -r -p "Enter the database ROOT password: " db_password
+        while [ -z "$db_password" ]; do
+            read -r -p "Password cannot be empty. Please enter the database password: " db_password
+        done
+        read -r -p "Enter the database name: " db_name
+        while [ -z "$db_name" ]; do
+            read -r -p "Database name cannot be empty. Please enter the database name: " db_name
+        done
+        read -r -p "Enter de database user: " db_user
+        while [ -z "$db_user" ]; do
+            read -r -p "Database user cannot be empty. Please enter the database user: " db_user
+        done
+        read -r -p "Enter the database user password: " db_user_password
+        while [ -z "$db_user_password" ]; do
+            read -r -p "Database user password cannot be empty. Please enter the database user password: " db_user_password
+        done
+        read -r -p "Enter the database host: " db_host
+        while [ -z "$db_host" ]; do
+            read -r -p "Database host cannot be empty. Please enter the database host: " db_host
+        done
+        read -r -p "Enter the Django secret key. It can be generated at https://djecrety.ir/ : " secret
+        while [ -z "$secret" ]; do
+            read -r -p "Secret key cannot be empty. Please enter the secret key: " secret
+        done
+        read -r -p "Enter the fortnite API secret key. It can be generated at https://dash.fortnite-api.com/account by logging in via Discord and following the instructions: " fort_secret
+        while [ -z "$fort_secret" ]; do
+            read -r -p "Fortnite API cannot be empty. Please enter the Fortnite API secret key: " fort_secret
+        done
+        read -r -p "Will the server run in production mode? [Y/n]" production
+        if [[ $production =~ ^(y|yes|Y|YES)$ ]]; then
+            echo "Production mode enabled. Please remember to set up the allowed hosts in the settings.py file."
+            production="True"
+        else
+            echo "Production mode disabled. Do not deploy this server on production."
+            production="False"
+        fi
+        echo "Creating config file..."
+        echo "MYSQL_ROOT_PASSWORD=$db_password
+MYSQL_DATABASE=$db_name
+MYSQL_USER=$db_user
+MYSQL_PASSWORD=$db_user_password
+MYSQL_HOST=$db_host
+DJANGO_SECRET_KEY=$secret
+FORT_SECRET=$fort_secret
+DJANGO_DEBUG=$production" >.env
+    else
+        echo "Config file found."
+    fi
+}
+
 while true; do
+    attemp_install
     mostrar_menu
     read -r -p "Type your option [0-2]: " option
 
