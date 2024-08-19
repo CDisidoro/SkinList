@@ -1,4 +1,5 @@
-Django==5.0.8
+Django
 mysqlclient
 fortnite-api
+pyOpenSSL
 django-sslserver
