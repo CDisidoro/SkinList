@@ -84,6 +84,7 @@ while true; do
     case $option in
         1)
             echo "Launching application, please wait..."
+            cp .env SkinList/.env
             docker-compose up --build
             break
             ;;
